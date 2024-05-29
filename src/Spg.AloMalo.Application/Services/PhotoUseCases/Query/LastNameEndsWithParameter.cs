@@ -1,4 +1,5 @@
-﻿using Spg.AloMalo.DomainModel.Interfaces.Repositories;
+﻿/*
+using Spg.AloMalo.DomainModel.Interfaces.Repositories;
 
 namespace Spg.AloMalo.Application.Services.PhotoUseCases.Query
 {
@@ -26,3 +27,4 @@ namespace Spg.AloMalo.Application.Services.PhotoUseCases.Query
         }
     }
 }
+*/

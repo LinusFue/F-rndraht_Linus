@@ -1,4 +1,5 @@
-﻿using Spg.AloMalo.DomainModel.Interfaces.Repositories;
+﻿using Spg.AloMalo.DomainModel.Interfaces;
+using Spg.AloMalo.DomainModel.Interfaces.Repositories;
 using Spg.AloMalo.DomainModel.Model;
 
 namespace Spg.AloMalo.Repository.Builder
@@ -6,18 +7,30 @@ namespace Spg.AloMalo.Repository.Builder
     public class PhotoFilterBuilder : IPhotoFilterBuilder
     {
         public IQueryable<Photo> EntityList { get; set; }
+        private readonly List<IFilter<Photo>> _filters = new();
 
         public PhotoFilterBuilder(IQueryable<Photo> photos)
         {
             EntityList = photos;
         }
 
-        public IQueryable<Photo> Build()
+        public IPhotoFilterBuilder ApplyFilter(IFilter<Photo> filter)
         {
-            return EntityList;
+            throw new NotImplementedException();
         }
 
-        public IPhotoFilterBuilder ApplyIdFilter(PhotoId id)
+        public IQueryable<Photo> Build()
+        {
+            var query = EntityList;
+            foreach (var filter in _filters)
+            {
+                query = filter.Apply(query);
+            }
+
+            return query;
+        }
+
+        /*public IPhotoFilterBuilder ApplyIdFilter(PhotoId id)
         {
             EntityList = EntityList.Where(x => x.Id == id);
             return this;
@@ -46,6 +59,6 @@ namespace Spg.AloMalo.Repository.Builder
         {
             EntityList = EntityList.Where(x => x.AiGenerated == @is);
             return this;
-        }
+        }*/
     }
 }
